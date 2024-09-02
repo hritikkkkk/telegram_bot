@@ -1,4 +1,5 @@
 import { Telegraf, Context } from "telegraf";
+import { fetchQuote } from "./quote";
 
 export function setupCommands(bot: Telegraf<Context>) {
   bot.hears("hi", (ctx) => ctx.reply("Hey there!"));
@@ -36,6 +37,18 @@ export function setupCommands(bot: Telegraf<Context>) {
     } catch (error) {
       console.error("Failed to quit chat:", error);
       ctx.reply("Failed to leave the chat.");
+    }
+  });
+
+  bot.command("quote", async (ctx) => {
+    try {
+      const quoteData = await fetchQuote();
+      const quote = quoteData.content;
+      const author = quoteData.author;
+      await ctx.reply(`"${quote}"\n\n- ${author}`);
+    } catch (error) {
+      console.error("Failed to fetch quote:", error);
+      await ctx.reply("Sorry, I couldn't fetch a quote at the moment.");
     }
   });
 }
