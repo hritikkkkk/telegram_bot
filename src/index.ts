@@ -14,6 +14,10 @@ const commands = [
   { command: "/modern", description: "Say yo in a modern way" },
   { command: "/hipster", description: "Say λ in a hipster way" },
   { command: "/quit", description: "Make the bot leave the chat" },
+  {
+    command: "/weather city_name",
+    description: "Get your city weather update",
+  },
 ];
 
 bot.start((ctx) => ctx.reply("Welcome to the bot!"));
